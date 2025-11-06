@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+      span {
+       color: red;
+       font-size: 12px;
+      }
+    </style>
+</head>
+<body>
+    <script>
+        window.onload=function(){
+          var uname=  document.getElementById("username")
+          var name_error=document.getElementById("name_error")
+          uname.onblur=function(){
+     var unamevalue=   uname.value.trim()
+           if(!unamevalue){
+            name_error.innerHTML="用户名不能为空"
+           }else{
+              if(unamevalue.length<6||unamevalue>14){
+                name_error.innerHTML="长度不能低于6或者大于14"
+              } else{
+                //用户名合法
+                //继续判断正则表达式
+                var regExp=/^[A-Za-z0-9]+$/
+              var ok=  regExp.test(unamevalue)
+              if(ok){
+              }else{
+                name_error.innerHTML="不能含有特殊字符"
+              }
+              }
+ 
+           }
+        }
+        //获得焦点后将spn清空
+        uname.onfocus=function(){
+         name_error.innerHTML=''
+        }
+        var  upw_error=document.getElementById("upw_error")
+        var upasw=document.getElementById("upw")
+        var upasw2=document.getElementById("upw2")
+        upasw2.onblur=function(){
+        if(upasw.value.trim()===upasw2.value.trim()){
+ 
+        } else{
+                 upw_error.innerHTML="密码不一致，请重新输入"
+        }
+    }
+    //获得焦点后 将 span与vaule 清空
+    upasw2.onfocus=function(){
+        upw_error.innerHTML=""
+       
+    }
+    //邮箱的正则表达式验证
+    var email=document.getElementById("email")
+    var email_error=document.getElementById("email_error")
+    email.onblur=function(){
+        var emailvalue=email.value.trim()
+        var regEmail=/\w[-.\w]*\@[-a-z0-9]+(\.[-a-z0-9]+)*\.(com|cn|edu|uk)/
+        var ok=regEmail.test(emailvalue)
+        if(ok){
+        }else{
+           email_error.innerHTML="邮箱地址不合法！"
+        }
+    }
+    email.onfocus=function(){
+      email_error.innerHTML=''
+    }
+      var bt=document.getElementById("bt")
+        bt.onclick=function(){
+            uname.focus();
+            uname.blur();
+ 
+            upasw2.focus()
+            upasw2.blur()
+            
+            email.focus()
+            email.blur()
+ 
+            if(name_error.innerHTML===''&&upw_error.innerHTML===''&&email_error.innerHTML===''){
+                var from=document.getElementById("test")
+                
+             from.submit()
+            }else{
+ 
+            }
+        }
+    }
+    </script>
+    <form action="http://localhost:8090/ja/dfgh" id="test">
+      <table align="center">
+        <br><br><br><br><br><br><br><br>
+        <tr>
+          <td>用户名</span></td>
+          <td><input type="text" name="username" id="username"/><span id="name_error"></span></td>
+        </tr>
+        <tr>
+          <td>密码</td>
+          <td><input type="text" name="upw" id="upw"  required="required"/></td>
+        </tr>
+        <tr>
+          <td> 确认密码</span></td>
+          <td><input type="text" id="upw2"/><span id="upw_error"></span></td>
+        </tr>  
+        <tr>
+          <td>邮箱</span></td>
+          <td>
+            <input type="text" name="email" id="email"/><span id="email_error"></span>
+          </td>
+        </tr>
+        <tr align="center">
+          <td colspan="2">
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="button" value="登录" id="bt"/>
+              &nbsp;&nbsp;
+              <input type="reset" value="清空"/>
+          </td>
+        </tr>
+      </table>
+        
+    </form>
+</body>
+</html>
