@@ -1,4 +1,4 @@
-package com.bamboo.firstdemo.ServiceImpl;
+package com.bamboo.firstdemo.serviceImpl;
 
 import com.bamboo.firstdemo.config.GlobalConfig;
 import com.bamboo.firstdemo.controller.bean.OpenidRespond;
