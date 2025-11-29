@@ -1,17 +1,26 @@
 package com.bamboo.firstdemo.controller.bean;
 
 public class LoginRequest {
-    private String openId;
+    private String userId;
+    private String openid;
     private String nickName;
     private String avatarUrl;
     private String password;
 
-    public String getOpenId() {
-        return openId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setOpenId(String openId) {
-        this.openId = openId;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 
     public String getNickName() {
@@ -37,4 +46,5 @@ public class LoginRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
