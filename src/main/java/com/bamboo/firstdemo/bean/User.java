@@ -4,27 +4,58 @@ package com.bamboo.firstdemo.bean;
  * @author FarryNiu 2025/11/6
  */
 public class User {
-    private String username;
-    private String upw;
+    private String userId;
+    private String openid;
+    private String nickName;
+    private String avataurl;
+    private String phone;
+    private String password;
 
-    public User(String username, String upw) {
-        this.username = username;
-        this.upw = upw;
+    public String getUserId() {
+        return userId;
     }
 
-    public String getUsername() {
-        return username;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getOpenid() {
+        return openid;
     }
 
-    public String getUpw() {
-        return upw;
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 
-    public void setUpw(String upw) {
-        this.upw = upw;
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getAvataurl() {
+        return avataurl;
+    }
+
+    public void setAvataurl(String avataurl) {
+        this.avataurl = avataurl;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

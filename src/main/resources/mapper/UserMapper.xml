@@ -3,11 +3,11 @@
 <mapper namespace="com.bamboo.firstdemo.dao.mapper.UserMapper">
 <!--    获取用户信息-->
     <select id="getInfo" parameterType="String" resultType="com.bamboo.firstdemo.bean.User">
-        SELECT * FROM user_list WHERE user_id = #{user_id}
+        SELECT * FROM user WHERE openid = #{openid}
     </select>
 <!--    增加用户信息-->
-    <insert id="addUser" parameterType="com.bamboo.firstdemo.bean.User" >
-        insert into user_list (user_id,password) values (#{user_id},#{password});
-    </insert>
+<!--    <insert id="addUser" parameterType="com.bamboo.firstdemo.bean.User" >-->
+<!--        insert into user_list (user_id,password) values (#{user_id},#{password});-->
+<!--    </insert>-->
 
 </mapper>
