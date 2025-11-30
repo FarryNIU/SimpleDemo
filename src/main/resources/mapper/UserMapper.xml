@@ -6,8 +6,8 @@
         SELECT * FROM user WHERE openid = #{openid}
     </select>
 <!--    增加用户信息-->
-<!--    <insert id="addUser" parameterType="com.bamboo.firstdemo.bean.User" >-->
-<!--        insert into user_list (user_id,password) values (#{user_id},#{password});-->
-<!--    </insert>-->
+    <insert id="addUser" parameterType="com.bamboo.firstdemo.bean.User" >
+        insert into user (openId,nickName,avatarurl,phone,password) values (#{openid},#{nickName},#{avataurl},#{phone},#{password});
+    </insert>
 
 </mapper>

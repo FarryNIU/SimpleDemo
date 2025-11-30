@@ -5,18 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
+/**
+ * @author FarryNiu 2025/11/30
+ */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserLoginVO implements Serializable {
-
+@Builder
+public class UserLogupVO {
     private int success;
     private String userId;
     private String openid;
     private String token;
-    private String errorInfo;
-
 }
