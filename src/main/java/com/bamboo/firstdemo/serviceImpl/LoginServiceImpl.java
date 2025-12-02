@@ -11,6 +11,7 @@ import com.bamboo.firstdemo.dao.mapper.UserMapper;
 import com.bamboo.firstdemo.properties.JwtProperties;
 import com.bamboo.firstdemo.service.LoginService;
 import com.bamboo.firstdemo.util.AlgorithmUtil;
+import com.bamboo.firstdemo.util.CacheService;
 import com.bamboo.firstdemo.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class LoginServiceImpl implements LoginService {
     private JwtProperties jwtProperties;
     @Autowired(required = false)
     private UserMapper userMapper;
+    @Autowired
+    private CacheService cacheService;
 
 
     /**
@@ -53,6 +56,13 @@ public class LoginServiceImpl implements LoginService {
         claims.put("openid", loginRequest.getOpenid());
         String token = JwtUtil.createJWT(jwtProperties.getUserSecretKey(), jwtProperties.getUserTtl(), claims);
         System.out.println("生成token："+token);
+
+        HashMap<String, String> userInfo = new HashMap<>();
+        userInfo.put("userId",user.getUserId());
+        userInfo.put("phone",user.getPhone());
+        userInfo.put("avataurl",user.getAvataurl());
+        cacheService.setHashMap(user.getUserId(),userInfo);
+
         return UserLoginVO.builder()
                 .userId(user.getUserId())
                 .openid(user.getOpenid())
