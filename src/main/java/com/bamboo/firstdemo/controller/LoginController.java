@@ -35,7 +35,6 @@ public class LoginController {
     @PostMapping("/logup")
     @ResponseBody
     public UserLogupVO logup(@RequestBody LogupRequest logupRequest){
-        System.out.println("用户注册Controller被调用 "+ logupRequest.getNickName());
-        return loginService.logup(logupRequest);
+        System.out.println("用户注册Controller被调用 "+ logupRequest.getNickName());return loginService.logup(logupRequest);
     }
 }
