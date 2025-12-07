@@ -32,7 +32,7 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
         try {
             log.info("jwt校验:{}", authentication);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), authentication);
-            Long userId = claims.get("userId", Long.class);
+            String userId = claims.get("userId", String.class);
             String openid = claims.get("openid", String.class);
             log.info("当前小程序用户ID：{}, openid: {}", userId, openid);
             return true;

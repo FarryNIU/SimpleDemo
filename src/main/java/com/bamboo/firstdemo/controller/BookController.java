@@ -17,7 +17,13 @@ public class BookController {
 
     @PostMapping("/book")
     @ResponseBody
-    @RateLimit
+    @RateLimit(
+            slidingWindowSize = 10,
+            slidingMaxRequests = 100,
+            tokenCapacity = 1000,
+            tokenRefillRate = 100,
+            message = "接口请求过于频繁，请稍后重试"
+    )
     public UserLoginVO login(@RequestBody BookRequest bookRequest){
         System.out.println("业务被调用 "+ bookRequest.getText());
         mqSender.initMq();

@@ -17,7 +17,7 @@ import java.util.List;
 public class SlidingWindowRateLimiter {
     
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    RedisTemplate<String, Object> redisTemplate;
     
     // Lua脚本保证原子性
     private static final String SLIDING_WINDOW_SCRIPT = 

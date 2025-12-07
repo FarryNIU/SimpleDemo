@@ -1,10 +1,14 @@
 package com.bamboo.firstdemo.util;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Component
 public class TokenBucketLimiter{
     
     // 存储每个key的令牌桶状态

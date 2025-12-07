@@ -1,28 +1,29 @@
 package com.bamboo.firstdemo.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DoubleLayerLimiter {
-    
-    private final SlidingWindowRateLimiter slidingWindowLimiter;
-    private final TokenBucketLimiter tokenBucketLimiter;
+
+    @Autowired
+    private SlidingWindowRateLimiter slidingWindowLimiter;
+    @Autowired
+    private TokenBucketLimiter tokenBucketLimiter;
     
     public DoubleLayerLimiter() {
-        this.slidingWindowLimiter = new SlidingWindowRateLimiter();
-        this.tokenBucketLimiter = new TokenBucketLimiter();
         
         // 启动清理线程
         startCleanupThread();
     }
     
-    public boolean tryAcquire(String key, 
+    public boolean tryAcquire(String user, String method,
                              int slidingWindowSize, int slidingMaxRequests,
                              int tokenCapacity, int tokenRefillRate) {
         
         // 第一层：滑动窗口限流（应对突发流量）
         boolean slidingAllowed = slidingWindowLimiter.tryAcquire(
-            key + ":sliding", 
+            user + ":sliding",
             slidingWindowSize, 
             slidingMaxRequests  ,
                 500
@@ -34,7 +35,7 @@ public class DoubleLayerLimiter {
         
         // 第二层：令牌桶限流（平滑流量）
         boolean tokenAllowed = tokenBucketLimiter.tryAcquire(
-            key + ":token",
+                method + ":token",
             tokenCapacity,
             tokenRefillRate
         );

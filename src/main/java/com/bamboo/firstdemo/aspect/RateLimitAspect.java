@@ -1,6 +1,7 @@
 package com.bamboo.firstdemo.aspect;
 
 import com.bamboo.firstdemo.annotation.RateLimit;
+import com.bamboo.firstdemo.controller.bean.BookRequest;
 import com.bamboo.firstdemo.exception.RateLimitException;
 import com.bamboo.firstdemo.util.DoubleLayerLimiter;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -10,6 +11,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import java.lang.reflect.Method;
 
@@ -24,14 +27,30 @@ public class RateLimitAspect {
     @Around("@annotation(rateLimit)")
     public Object around(ProceedingJoinPoint joinPoint, RateLimit rateLimit) throws Throwable {
         // 生成限流key（类名+方法名+参数）
-        String key = generateKey(joinPoint, rateLimit);
-        
+        String method = generateKey(joinPoint, rateLimit);
+        String userId = null;
+        // 获取所有参数值
+        Object[] args = joinPoint.getArgs();
+        for (Object arg : args) {
+            // 方法1：直接类型判断和转换
+            if (arg instanceof BookRequest) {
+                BookRequest bookRequest = (BookRequest) arg;
+                userId = bookRequest.getUserId();
+                System.out.println("提取到userId: " + userId);
+
+                // 可以放入ThreadLocal或Request Attribute
+                RequestContextHolder.currentRequestAttributes()
+                        .setAttribute("userId", userId, RequestAttributes.SCOPE_REQUEST);
+                break;
+            }
+        }
         boolean allowed;
         
         if (rateLimit.enableSliding() && rateLimit.enableTokenBucket()) {
             // 双层限流
             allowed = doubleLayerLimiter.tryAcquire(
-                key,
+                userId,
+                method,
                 rateLimit.slidingWindowSize(),
                 rateLimit.slidingMaxRequests(),
                 rateLimit.tokenCapacity(),
@@ -40,11 +59,11 @@ public class RateLimitAspect {
         } else if (rateLimit.enableSliding()) {
             // 仅滑动窗口
             // 调用滑动窗口限流器
-            allowed = true; // 简化实现
+            allowed = true;
         } else if (rateLimit.enableTokenBucket()) {
             // 仅令牌桶
             // 调用令牌桶限流器
-            allowed = true; // 简化实现
+            allowed = true;
         } else {
             allowed = true;
         }
