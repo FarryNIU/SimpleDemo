@@ -1,7 +1,7 @@
 package com.bamboo.firstdemo.controller;
 
+import com.bamboo.firstdemo.annotation.RateLimit;
 import com.bamboo.firstdemo.controller.bean.BookRequest;
-import com.bamboo.firstdemo.controller.bean.LoginRequest;
 import com.bamboo.firstdemo.controller.vo.UserLoginVO;
 import com.bamboo.firstdemo.mq.MqSender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ public class BookController {
 
     @PostMapping("/book")
     @ResponseBody
+    @RateLimit
     public UserLoginVO login(@RequestBody BookRequest bookRequest){
         System.out.println("业务被调用 "+ bookRequest.getText());
         mqSender.initMq();
