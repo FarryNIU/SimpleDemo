@@ -64,12 +64,17 @@ public class LoginServiceImpl implements LoginService {
         claims.put("openid", loginRequest.getOpenid());
         String token = JwtUtil.createJWT(jwtProperties.getUserSecretKey(), jwtProperties.getUserTtl(), claims);
         System.out.println("生成token："+token);
-
+        /**
+         * 由于通过注解的方式简化，不再需要显示的写出存入缓存的过程了
+         */
+        /*
         HashMap<String, String> userInfo = new HashMap<>();
+
         userInfo.put("userId",user.getUserId());
         userInfo.put("phone",user.getPhone());
         userInfo.put("avataurl",user.getAvataurl());
         cacheService.setHashMap("users::"+user.getOpenid(),userInfo);
+        */
 
         return UserLoginVO.builder()
                 .userId(user.getUserId())
