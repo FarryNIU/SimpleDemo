@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class BookRequest {
-    private String text;
+    private String openid;
     private String userId;
+    private String lessonId;
 }

@@ -1,6 +1,7 @@
 package com.bamboo.firstdemo.mq;
 
 import com.bamboo.firstdemo.controller.bean.BookRequest;
+import com.bamboo.firstdemo.properties.MqProperties;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -16,15 +17,17 @@ public class MqProducer {
     
     @Autowired
     private RabbitTemplate rabbitTemplate;
-    
-    @Autowired
+
     private RetryTemplate retryTemplate;
+
+    @Autowired
+    private MqProperties mqProperties;
     
     /**
      * 带重试的消息发送
      */
     public void sendWithRetry(BookRequest bookRequest, int maxAttempts) throws Exception {
-        RetryTemplate retryTemplate = RetryTemplate.builder()
+        retryTemplate = RetryTemplate.builder()
             .maxAttempts(maxAttempts)
             .exponentialBackoff(1000, 2, 10000)
             .retryOn(AmqpException.class)  // 只在AMQP异常时重试
@@ -37,8 +40,8 @@ public class MqProducer {
             
             try {
                 rabbitTemplate.convertAndSend(
-                        "order.exchange",
-                    "order.retry",
+                    mqProperties.getExchange(),
+                    mqProperties.getRoutingkey(),
                     bookRequest,
                     correlationData
                 );
@@ -50,7 +53,7 @@ public class MqProducer {
                 if (!confirm.isAck()) {
                     throw new AmqpException("Broker未确认");
                 }
-                
+                System.out.println("发送成功");
                 return null;  // 成功，退出重试
                 
             } catch (TimeoutException e) {
