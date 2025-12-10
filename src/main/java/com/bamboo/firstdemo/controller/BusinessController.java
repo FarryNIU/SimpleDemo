@@ -6,6 +6,8 @@ import com.bamboo.firstdemo.controller.vo.BookConfirmVO;
 import com.bamboo.firstdemo.controller.vo.UserLoginVO;
 import com.bamboo.firstdemo.mq.MqProducer;
 import com.bamboo.firstdemo.mq.MqSender;
+import com.bamboo.firstdemo.service.BusinessService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,12 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/business")
+@Slf4j
 public class BusinessController {
     @Autowired
-    MqSender mqSender;
-
-    @Autowired
-    MqProducer mqProducer;
+    BusinessService businessService;
 
     @PostMapping("/book")
     @ResponseBody
@@ -32,14 +32,7 @@ public class BusinessController {
             message = "接口请求过于频繁，请稍后重试"
     )
     public BookConfirmVO book(@RequestBody BookRequest bookRequest){
-        System.out.println("业务被调用 "+ bookRequest.getUserId());
-       // mqSender.initMq();
-       // mqSender.sendMessage(bookRequest.getText());
-        try {
-            mqProducer.sendWithRetry(bookRequest,3);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        log.info("Controller被调用:book");
+        return businessService.book(bookRequest);
     }
 }
