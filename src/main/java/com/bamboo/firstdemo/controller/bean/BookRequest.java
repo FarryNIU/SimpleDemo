@@ -6,5 +6,5 @@ import lombok.Data;
 public class BookRequest {
     private String openid;
     private String userId;
-    private String lessonId;
+    private String contractId;
 }
