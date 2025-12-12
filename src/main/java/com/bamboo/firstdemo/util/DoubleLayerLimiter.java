@@ -57,23 +57,4 @@ public class DoubleLayerLimiter {
         cleanupThread.setDaemon(true);
         cleanupThread.start();
     }
-    
-    // 获取当前状态（用于监控）
-    public String getStatus(String key) {
-        return String.format(
-            "SlidingWindow: %s, TokenBucket: %s",
-            getSlidingWindowStatus(key),
-            getTokenBucketStatus(key)
-        );
-    }
-    
-    private String getSlidingWindowStatus(String key) {
-        // 实现状态查询逻辑
-        return "active";
-    }
-    
-    private String getTokenBucketStatus(String key) {
-        // 实现状态查询逻辑
-        return "active";
-    }
 }
