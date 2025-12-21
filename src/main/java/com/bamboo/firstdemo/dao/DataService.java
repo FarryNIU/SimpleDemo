@@ -23,7 +23,7 @@ public class DataService {
     public String insertUser(String openid, String avatarUrl, String passwordSHA, String nickName, String phone){
         log.info("userMapper 插入数据库");
         userMapper.addUser(User.builder().openid(openid)
-                .avataurl(avatarUrl)
+                .avataUrl(avatarUrl)
                 .password(passwordSHA)
                 .nickName(nickName)
                 .phone(phone).build());

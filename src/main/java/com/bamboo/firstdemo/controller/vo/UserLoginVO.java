@@ -19,4 +19,5 @@ public class UserLoginVO implements Serializable {
     private String token;
     private String errorInfo;
 
+
 }

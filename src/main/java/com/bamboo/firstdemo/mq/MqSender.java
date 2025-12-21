@@ -42,7 +42,7 @@ public class MqSender {
              *  @params5： arguments 可以设置队列附加参数，设置队列的有效期，消息的最大长度，队列的消息生命周期等等
              * */
             channel.queueDeclare(
-                    "nzf-queue3",
+                    "bamboo",
                     true,         // durable
                     false, false, null// not exclusive, not auto-delete
                     // Collections.singletonMap("x-queue-type", "stream")
@@ -57,11 +57,11 @@ public class MqSender {
              *
              **/
 
-            channel.basicPublish("", "nzf-queue3", MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes());
+            channel.basicPublish("", "bamboo", MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes());
             System.out.println("消息发送成功!");
 
-            channel.basicPublish("", "nzf-queue2", null, message.getBytes());
-            System.out.println("消息发送成功!");
+          //  channel.basicPublish("", "bamboo", null, message.getBytes());
+          //  System.out.println("消息发送成功!");
 
             // 最后关闭通关和连接
             channel.close();

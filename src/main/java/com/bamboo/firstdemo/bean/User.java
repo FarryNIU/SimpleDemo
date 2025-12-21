@@ -16,7 +16,7 @@ public class User {
     private String userId;
     private String openid;
     private String nickName;
-    private String avataurl;
+    private String avataUrl;
     private String phone;
     private String password;
 }
