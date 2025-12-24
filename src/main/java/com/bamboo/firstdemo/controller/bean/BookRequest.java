@@ -7,4 +7,5 @@ public class BookRequest {
     private String openid;
     private String userId;
     private String contractId;
+    private Long requestId;
 }
