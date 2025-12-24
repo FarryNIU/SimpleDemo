@@ -1,5 +1,6 @@
 package com.bamboo.firstdemo.config;
 import com.bamboo.firstdemo.interceptor.JwtTokenUserInterceptor;
+import com.bamboo.firstdemo.interceptor.RequestIdInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -16,16 +17,23 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     @Autowired
     private JwtTokenUserInterceptor jwtTokenUserInterceptor;
 
+    @Autowired
+    private RequestIdInterceptor requestIdInterceptor;
+
     /**
      * 注册自定义拦截器
      *
      * @param registry
      */
     protected void addInterceptors(InterceptorRegistry registry) {
-        log.info("开始注册自定义拦截器...");
+        log.info("开始注册拦截器-JWT...");
         registry.addInterceptor(jwtTokenUserInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/logup");
+
+        log.info("开始注册拦截器-ReqId...");
+        registry.addInterceptor(requestIdInterceptor)
+                .addPathPatterns("/**");
     }
 }
