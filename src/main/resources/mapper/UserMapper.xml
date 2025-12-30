@@ -10,4 +10,12 @@
         insert into user (openId,nickName,avatarurl,phone,password) values (#{openid},#{nickName},#{avataUrl},#{phone},#{password});
     </insert>
 
+    <select id="getAllRecords"  resultType="com.bamboo.firstdemo.bean.StudentRecordEntity">
+        SELECT * FROM student_record
+    </select>
+
+    <select id="scanAll" resultType="com.example.entity.StudentRecordEntity" fetchSize="-2147483648">
+        SELECT * FROM student_record
+    </select>
+
 </mapper>

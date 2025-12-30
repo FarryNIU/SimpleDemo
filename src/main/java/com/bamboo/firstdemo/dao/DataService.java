@@ -1,5 +1,6 @@
 package com.bamboo.firstdemo.dao;
 
+import com.bamboo.firstdemo.bean.StudentRecordEntity;
 import com.bamboo.firstdemo.bean.User;
 import com.bamboo.firstdemo.dao.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @Slf4j
@@ -28,5 +31,9 @@ public class DataService {
                 .nickName(nickName)
                 .phone(phone).build());
         return openid;
+    }
+
+    public List<StudentRecordEntity> findAllRecords(){
+        return userMapper.getAllRecords();
     }
 }

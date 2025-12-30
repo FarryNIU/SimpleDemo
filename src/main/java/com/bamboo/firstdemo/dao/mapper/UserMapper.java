@@ -1,6 +1,10 @@
 package com.bamboo.firstdemo.dao.mapper;
 
+import com.bamboo.firstdemo.bean.StudentRecordEntity;
 import com.bamboo.firstdemo.bean.User;
+import org.apache.ibatis.cursor.Cursor;
+
+import java.util.List;
 
 public interface UserMapper {
     /**
@@ -13,4 +17,8 @@ public interface UserMapper {
      * @param newUser 一个userBean
      */
     void addUser(User newUser);
+
+    List<StudentRecordEntity> getAllRecords();
+
+    Cursor<StudentRecordEntity> scanAll();
 }
