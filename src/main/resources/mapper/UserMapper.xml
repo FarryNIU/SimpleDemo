@@ -14,7 +14,7 @@
         SELECT * FROM student_record
     </select>
 
-    <select id="scanAll" resultType="com.example.entity.StudentRecordEntity" fetchSize="-2147483648">
+    <select id="scanAll" resultType="com.bamboo.firstdemo.bean.StudentRecordEntity" fetchSize="-2147483648">
         SELECT * FROM student_record
     </select>
 
