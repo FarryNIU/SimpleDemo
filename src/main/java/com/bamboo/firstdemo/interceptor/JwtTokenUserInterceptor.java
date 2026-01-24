@@ -30,10 +30,12 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
         String authentication = request.getHeader(jwtProperties.getUserTokenName());
 
         try {
+            // 模拟开发新功能：本周需要上线一行代码
             log.info("jwt校验:{}", authentication);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), authentication);
             String userId = claims.get("userId", String.class);
             String openid = claims.get("openid", String.class);
+
             log.info("当前小程序用户ID：{}, openid: {}", userId, openid);
             return true;
         } catch (ExpiredJwtException e) {
